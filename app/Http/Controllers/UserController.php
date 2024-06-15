@@ -8,6 +8,7 @@ use App\Models\Contact;
 use App\Models\Evenement;
 use App\Models\Image;
 use App\Models\Video;
+use App\Models\Ecole;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -36,7 +37,8 @@ class UserController extends Controller
 
         $user = User::where('email', $request->email)->first();
         if ($user != null && Hash::check($request->password, $user->password)) {
-            return view('admin.index');
+            $infos = Ecole::all();
+            return view('admin.index',compact('infos'));
 
         }
         return back()->with( ["message" => "Email ou mot de password incorrect."]);

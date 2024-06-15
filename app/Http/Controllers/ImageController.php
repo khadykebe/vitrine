@@ -78,10 +78,10 @@ class ImageController extends Controller
      */
     public function destroy($id)
     {
-        $student = Student::findOrFail($id);
-        \Storage::disk('public')->delete($student->photo);
-        $student->delete();
+        $image = Image::findOrFail($id);
+        $image->delete();
 
-        return redirect()->route('students.index')->with('success', 'Student deleted successfully');
+        return redirect()->route('allImage')->with('success', 'supp réussit.');
+
     }
 }

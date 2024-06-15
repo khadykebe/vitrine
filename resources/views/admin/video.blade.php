@@ -28,6 +28,8 @@
 
   <!-- Template Main CSS File -->
   <link href="admin/assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
 
   <!-- =======================================================
   * Template Name: NiceAdmin
@@ -153,7 +155,7 @@
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>Activités</h1>
+      <h1>Vidéo</h1>
     </div><!-- End Page Title -->
 
     <section class="section">
@@ -162,29 +164,38 @@
 
           <div class="card">
             <div class="card-body">
+                <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addVideoModal">Add Video</button>
 
               <!-- Table with stripped rows -->
               <table class="table datatable">
                 <thead>
-                  <tr>
-                    <th>
-                      <b>N</b>ame
-                    </th>
-                    <th>Ext.</th>
-                    <th>City</th>
-                    <th data-type="date" data-format="YYYY/DD/MM">Start Date</th>
-                    <th>Completion</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>Unity Pugh</td>
-                    <td>9958</td>
-                    <td>Curicó</td>
-                    <td>2005/02/11</td>
-                    <td>37%</td>
-                  </tr>
-                </tbody>
+                    <tr>
+                        <th>Titre</th>
+                        <th>Vidéo</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        @foreach($videos as $video)
+                            <tr>
+                                <td>{{ $video->titre }}</td>
+                                <td>
+                                    <video width="800" height="400" controls>
+                                        <source src="{{$video->video}}" type="video/mp4">
+                                        <source src="votre-video.ogg" type="video/ogg">
+                                        Votre navigateur ne supporte pas la balise vidéo.
+                                    </video>
+                                </td>
+                                <td>
+                                    <form action="{{ route('videos.destroy', $video->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                        </tbody>
               </table>
               <!-- End Table with stripped rows -->
 
@@ -197,7 +208,36 @@
 
   </main><!-- End #main -->
 
+  <div class="modal fade" id="addVideoModal" tabindex="-1" aria-labelledby="addVideoModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="addVideoModalLabel">Add Video</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('addVideo') }}" method="POST">
+                    @csrf
+                    <div class="form-group">
+                        <label for="titre">Titre</label>
+                        <input type="text" class="form-control" id="titre" name="titre" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="photo">Photo</label>
+                        <input type="file" class="form-control-file" id="video" name="video" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">envoyer</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
   <!-- Vendor JS Files -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script src="admin/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="admin/assets/vendor/chart.js/chart.umd.js"></script>

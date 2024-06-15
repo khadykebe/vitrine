@@ -76,11 +76,6 @@
             </a>
           </li><!-- End Dashboard Nav -->
 
-          <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-menu-button-wide"></i><span>Home</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-          </li><!-- End Components Nav -->
 
           <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
@@ -135,19 +130,37 @@
             </ul>
           </li><!-- End Icons Nav -->
 
+
           <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-gem"></i><span>Galerie vidéo</span><i class="bi bi-chevron-down ms-auto"></i>
+              <i class="bi bi-gem"></i><span>Galerie images</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
               <li>
-                <a href="{{route('allVideo')}}">
-                  <i class="bi bi-circle"></i><span>Liste vidéo</span>
+                <a href="{{route('allImage')}}">
+                  <i class="bi bi-circle"></i><span>Liste Image</span>
                 </a>
               </li>
             </ul>
           </li><!-- End Icons Nav -->
 
+          <li class="nav-item">
+            <a class="nav-link collapsed" href="{{route('partenaire')}}">
+              <i class="bi bi-gem"></i><span>Partenaires</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+          </li><!-- End Icons Nav -->
+
+          <li class="nav-item">
+            <a class="nav-link collapsed"  href="{{route('scolaire')}}">
+              <i class="bi bi-gem"></i><span>Vie Scolaire</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+          </li><!-- End Icons Nav -->
+
+          <li class="nav-item">
+            <a class="nav-link collapsed"  href="{{route('programme')}}">
+              <i class="bi bi-gem"></i><span>Programme</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+          </li><!-- End Icons Nav -->
         </ul>
 
       </aside><!-- End Sidebar-->
@@ -162,7 +175,7 @@
 
                 <div class="card">
                   <div class="card-body">
-                    <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#addEventModal" style="float: right">
+                    <button type="button" class="btn btn-success m-2" data-toggle="modal" data-target="#addEventModal" style="float: right">
                         <i class="fa fa-add" aria-hidden="true"></i>
                     </button>
                     <!-- Table with stripped rows -->
@@ -171,12 +184,12 @@
                         <tr>
                           <th>Title</th>
                           <th>Description</th>
-                          <th>Date Debut</th>
-                          <th>Date Fin</th>
+                          <th>Date</th>
                           <th>Lieu</th>
+                          <th>Heure</th>
                           <th>Organisateur</th>
-                          <th>Type</th>
-                          <th>Statut</th>
+                          <th>Participation</th>
+                          <th>Objectifs</th>
                           <th>Image</th>
                           <th>Actions</th>
                         </tr>
@@ -186,12 +199,12 @@
                               <tr>
                                   <td>{{ $activite->titre }}</td>
                                   <td>{{ $activite->description }}</td>
-                                  <td>{{ $activite->date_debut }}</td>
+                                  <td>{{ $activite->date }}</td>
                                   <td>{{ $activite->date_fin }}</td>
                                   <td>{{ $activite->lieu }}</td>
                                   <td>{{ $activite->organisateur }}</td>
-                                  <td>{{ $activite->type }}</td>
-                                  <td>{{ $activite->statut }}</td>
+                                  <td>{{ $activite->Participation }}</td>
+                                  <td>{{ $activite->Objectifs }}</td>
                                   <td>
                                       <img src="{{ $activite->image }}" alt="Image" width="50">
                                       {{-- <img src="{{asset('images/{{$activite->image}}')}}" alt="Image" width="50"> --}}
@@ -257,7 +270,7 @@
                     @csrf
                     <div class="modal-body">
                         <div class="form-group">
-                            <label for="titre">Title</label>
+                            <label for="titre">Titre</label>
                             <input type="text" class="form-control" id="titre" name="titre" required>
                         </div>
                         <div class="form-group">
@@ -265,12 +278,12 @@
                             <textarea class="form-control" id="description" name="description" required></textarea>
                         </div>
                         <div class="form-group">
-                            <label for="date_debut">Date Debut</label>
-                            <input type="date" class="form-control" id="date_debut" name="date_debut" required>
+                            <label for="date_debut">Date</label>
+                            <input type="date" class="form-control" id="date" name="date" required>
                         </div>
                         <div class="form-group">
-                            <label for="date_fin">Date Fin</label>
-                            <input type="date" class="form-control" id="date_fin" name="date_fin" required>
+                            <label for="date_debut">Heure</label>
+                            <input type="text" class="form-control" id="heure" name="heure" required>
                         </div>
                         <div class="form-group">
                             <label for="lieu">Lieu</label>
@@ -281,12 +294,12 @@
                             <input type="text" class="form-control" id="organisateur" name="organisateur" required>
                         </div>
                         <div class="form-group">
-                            <label for="type">Type</label>
-                            <input type="text" class="form-control" id="type" name="type" required>
+                            <label for="type">Participation</label>
+                            <input type="text" class="form-control" id="participation" name="participation" required>
                         </div>
                         <div class="form-group">
-                            <label for="statut">Statut</label>
-                            <input type="text" class="form-control" id="statut" name="statut" required>
+                            <label for="statut">Objectifs</label>
+                            <input type="text" class="form-control" id="objectifs" name="objectifs" required>
                         </div>
                         <div class="form-group">
                             <label for="image">Image</label>

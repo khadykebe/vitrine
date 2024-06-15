@@ -31,17 +31,17 @@ class ActiviteController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'titre' => 'required',
-            'description' => 'required',
-            'date_debut' => 'required',
-            'date_fin' => 'required',
-            'lieu' => 'required',
-            'organisateur' => 'required',
-            'type' => 'required',
-            'statut' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
+        // $request->validate([
+        //     'titre' => 'required',
+        //     'description' => 'required',
+        //     'date_debut' => 'required',
+        //     'date_fin' => 'required',
+        //     'lieu' => 'required',
+        //     'organisateur' => 'required',
+        //     'participation' => 'required',
+        //     'objectifs' => 'required',
+        //     'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        // ]);
 
         if ($request->hasFile('image')) {
             $image = $request->file('image');
@@ -51,12 +51,12 @@ class ActiviteController extends Controller
         $activite = new Activite;
         $activite->titre = $request->titre;
         $activite->description = $request->description;
-        $activite->date_debut = $request->date_debut;
-        $activite->date_fin = $request->date_fin;
+        $activite->date = $request->date;
+        $activite->heure= $request->heure;
         $activite->lieu = $request->lieu;
         $activite->organisateur = $request->organisateur;
-        $activite->type = $request->type;
-        $activite->statut = $request->statut;
+        $activite->participation = $request->participation;
+        $activite->objectifs = $request->objectifs;
         $activite->image = 'images/'.$imageName;
         $activite->save();
         return redirect()->route('activite')->with('success', 'Ajout réussit.');

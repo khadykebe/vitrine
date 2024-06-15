@@ -25,6 +25,9 @@
   <link href="admin/assets/vendor/quill/quill.bubble.css" rel="stylesheet">
   <link href="admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
 
   <!-- Template Main CSS File -->
   <link href="admin/assets/css/style.css" rel="stylesheet">
@@ -68,7 +71,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="#">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -128,10 +131,19 @@
       </li><!-- End Icons Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{route('partenaire')}}">
-          <i class="bi bi-gem"></i><span>Partenaires</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-gem"></i><span>Partenaire</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{route('partenaire')}}">
+                  <i class="bi bi-gem"></i><span> Liste partenaires</span><i class="bi bi-chevron-down ms-auto"></i>
+                </a>
+            </li><!-- End Icons Nav -->
+        </ul>
       </li><!-- End Icons Nav -->
+
+
 
       <li class="nav-item">
         <a class="nav-link collapsed"  href="{{route('scolaire')}}">
@@ -148,84 +160,116 @@
     </ul>
 
   </aside><!-- End Sidebar-->
-
   <main id="main" class="main">
 
-        
+    <div class="pagetitle">
+      <h1>Vie Scolaire</h1>
+    </div><!-- End Page Title -->
 
-    <section class="section dashboard">
+    <section class="section">
       <div class="row">
+        @if(session('success'))
+        <div class="alert alert-success">
+            {{ session('success') }}
+        </div>
+        @endif
+        <div class="col-lg-12">
 
-        <!-- Left side columns -->
-        <div class="col-lg-8">
-          <div class="row">
+          <div class="card">
+            <div class="card-body">
+                        <i class="fa fa-add" aria-hidden="true"></i>
+                <button class="btn btn-success m-2 " data-toggle="modal" data-target="#addModal" style="float: right">
+                    <i class="fa fa-add" aria-hidden="true"></i>
+                </button>
 
-            <!-- Sales Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card sales-card">
+              <!-- Table with stripped rows -->
+              <table class="table datatable">
+                <thead>
+                    <tr>
+                        <th>logo</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                    @foreach($partenaires as $partenaire)
+                    <tbody>
+                        <tr>
+                            <td>
+                                <img src="{{ $partenaire->logo }}" class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|}" width="100" alt="">
+                            </td>
+                            <td>
+                                <button class="btn btn-danger delete-btn" data-id="{{ $partenaire->id }}" data-toggle="modal" data-target="#deleteModal"><i class="fas fa-trash"></i></button>
+                            </td>
+                        </tr>
+                        </tbody>
 
+                        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <form id="deleteForm" method="POST" action="{{route('deletepart',$partenaire->id)}}">
+                                        @csrf
+                                        @method('DELETE')
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="deleteModalLabel">Supprimer</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>Voulez-vous vraiment supprimer ?</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                                            <button type="submit" class="btn btn-danger">Supprimer</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</main>
 
-                <div class="card-body">
-                  <h5 class="card-title">Nombre d'éléves</h5>
-
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-cart"></i>
+      <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form method="POST" action="{{ route('addpart') }}" enctype="multipart/form-data">
+                    @csrf
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="addlogo">Logo</label>
+                            <input type="file" class="form-control-file" id="image" name="image" required>
+                        </div>
                     </div>
-                    <div class="ps-3">
-                      <h6>{{$infos[0]->NbreEleve}}</h6>
-
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+                        <button type="submit" class="btn btn-success">Ajouter</button>
                     </div>
-                  </div>
-                </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-              </div>
-            </div><!-- End Sales Card -->
-
-            <!-- Revenue Card -->
-            <div class="col-xxl-4 col-md-6">
-              <div class="card info-card revenue-card">
+ <!-- Modal de Suppression -->
 
 
-                <div class="card-body">
-                  <h5 class="card-title">Nombre d'enseignants</h5>
 
-                  <div class="d-flex align-items-center">
-                    <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                      <i class="bi bi-currency-dollar"></i>
-                    </div>
-                    <div class="ps-3">
-                      <h6>{{$infos[0]->NbreProf}}</h6>
+<script>
 
-                    </div>
-                  </div>
-                </div>
-
-              </div>
-            </div><!-- End Revenue Card -->
-
-            <div class="col-xxl-4 col-md-6">
-                <div class="card info-card revenue-card">
-
-
-                  <div class="card-body">
-                    <h5 class="card-title">Nombre de classes</h5>
-
-                    <div class="d-flex align-items-center">
-                      <div class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                        <i class="bi bi-currency-dollar"></i>
-                      </div>
-                      <div class="ps-3">
-                        <h6>{{$infos[0]->NbreClasse}}</h6>
-
-                      </div>
-                    </div>
-                  </div>
-
-                </div>
-              </div><!-- End Revenue Card -->
-
-            <script src="admin/assets/vendor/apexcharts/apexcharts.min.js"></script>
+        // Script pour gérer le formulaire de suppression
+        $(document).on('click', '.delete-btn', function() {
+            let id = $(this).data('id');
+            $('#deleteForm').attr('action', '/deleteProg/' + id);
+        });
+</script>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="admin/assets/vendor/apexcharts/apexcharts.min.js"></script>
   <script src="admin/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
   <script src="admin/assets/vendor/chart.js/chart.umd.js"></script>
   <script src="admin/assets/vendor/echarts/echarts.min.js"></script>

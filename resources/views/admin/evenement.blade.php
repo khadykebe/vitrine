@@ -77,11 +77,6 @@
             </a>
           </li><!-- End Dashboard Nav -->
 
-          <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-menu-button-wide"></i><span>Home</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-          </li><!-- End Components Nav -->
 
           <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
@@ -137,18 +132,22 @@
           </li><!-- End Icons Nav -->
 
           <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-gem"></i><span>Galerie vidéo</span><i class="bi bi-chevron-down ms-auto"></i>
+            <a class="nav-link collapsed" href="{{route('partenaire')}}">
+              <i class="bi bi-gem"></i><span>Partenaires</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a href="{{route('allVideo')}}">
-                  <i class="bi bi-circle"></i><span>Liste vidéo</span>
-                </a>
-              </li>
-            </ul>
           </li><!-- End Icons Nav -->
 
+          <li class="nav-item">
+            <a class="nav-link collapsed"  href="{{route('scolaire')}}">
+              <i class="bi bi-gem"></i><span>Vie Scolaire</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+          </li><!-- End Icons Nav -->
+
+          <li class="nav-item">
+            <a class="nav-link collapsed"  href="{{route('programme')}}">
+              <i class="bi bi-gem"></i><span>Programme</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+          </li><!-- End Icons Nav -->
         </ul>
 
       </aside><!-- End Sidebar-->
@@ -165,7 +164,7 @@
 
                 <div class="card">
                   <div class="card-body">
-                    <button type="button" class="btn btn-primary mb-4" data-toggle="modal" data-target="#addEventModal" style="float: right">
+                    <button type="button" class="btn btn-success m-2" data-toggle="modal" data-target="#addEventModal" style="float: right">
                         <i class="fa fa-add" aria-hidden="true"></i>
                     </button>
                     <!-- Table with stripped rows -->
@@ -178,8 +177,8 @@
                           <th>Date Fin</th>
                           <th>Lieu</th>
                           <th>Organisateur</th>
-                          <th>Type</th>
-                          <th>Statut</th>
+                          <th>Public Cible</th>
+                          <th>Heure</th>
                           <th>Image</th>
                           <th>Actions</th>
                         </tr>
@@ -284,11 +283,11 @@
                             <input type="text" class="form-control" id="organisateur" name="organisateur" required>
                         </div>
                         <div class="form-group">
-                            <label for="type">Type</label>
+                            <label for="type">Public Cible</label>
                             <input type="text" class="form-control" id="type" name="type" required>
                         </div>
                         <div class="form-group">
-                            <label for="statut">Statut</label>
+                            <label for="statut">Heure</label>
                             <input type="text" class="form-control" id="statut" name="statut" required>
                         </div>
                         <div class="form-group">

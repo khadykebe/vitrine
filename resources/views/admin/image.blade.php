@@ -26,6 +26,9 @@
   <link href="admin/assets/vendor/remixicon/remixicon.css" rel="stylesheet">
   <link href="admin/assets/vendor/simple-datatables/style.css" rel="stylesheet">
 
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
   <!-- Template Main CSS File -->
   <link href="admin/assets/css/style.css" rel="stylesheet">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -75,11 +78,6 @@
             </a>
           </li><!-- End Dashboard Nav -->
 
-          <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-menu-button-wide"></i><span>Home</span><i class="bi bi-chevron-down ms-auto"></i>
-            </a>
-          </li><!-- End Components Nav -->
 
           <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
@@ -135,18 +133,22 @@
           </li><!-- End Icons Nav -->
 
           <li class="nav-item">
-            <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-              <i class="bi bi-gem"></i><span>Galerie vidéo</span><i class="bi bi-chevron-down ms-auto"></i>
+            <a class="nav-link collapsed" href="{{route('partenaire')}}">
+              <i class="bi bi-gem"></i><span>Partenaires</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-              <li>
-                <a href="{{route('allVideo')}}">
-                  <i class="bi bi-circle"></i><span>Liste vidéo</span>
-                </a>
-              </li>
-            </ul>
           </li><!-- End Icons Nav -->
 
+          <li class="nav-item">
+            <a class="nav-link collapsed"  href="{{route('scolaire')}}">
+              <i class="bi bi-gem"></i><span>Vie Scolaire</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+          </li><!-- End Icons Nav -->
+
+          <li class="nav-item">
+            <a class="nav-link collapsed"  href="{{route('programme')}}">
+              <i class="bi bi-gem"></i><span>Programme</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+          </li><!-- End Icons Nav -->
         </ul>
 
       </aside><!-- End Sidebar-->
@@ -162,7 +164,9 @@
 
               <div class="card">
                 <div class="card-body">
-                    <button class="btn btn-primary mb-3" data-toggle="modal" data-target="#addStudentModal">Add Student</button>
+                    <button class="btn btn-success m-2" data-toggle="modal" data-target="#addStudentModal" style="float: right">
+                        <i class="fa fa-add" aria-hidden="true"></i>
+                    </button>
                   <!-- Table with stripped rows -->
                   <table class="table datatable">
                     <thead>
@@ -178,10 +182,10 @@
                                 <td>{{ $image->titre }}</td>
                                 <td><img src="{{$image->image}}" alt="" width="100"></td>
                                 <td>
-                                    <form action="{{ route('daleteImage', $image->id) }}" method="POST" onsubmit="return confirm('Are you sure you want to delete this student?');">
+                                    <form action="{{ route('daleteImage', $image->id) }}" method="POST" >
                                         @csrf
                                         @method('DELETE')
-                                        <button type="submit" class="btn btn-danger">Delete</button>
+                                        <button type="submit" class="btn btn-danger"><i class="fas fa-trash"></i></button>
                                     </form>
                                 </td>
                             </tr>

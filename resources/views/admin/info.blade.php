@@ -16,7 +16,8 @@
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <!-- Vendor CSS Files -->
 
   <link href="admin/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -74,11 +75,7 @@
         </a>
       </li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Home</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-      </li><!-- End Components Nav -->
+
 
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
@@ -134,18 +131,22 @@
       </li><!-- End Icons Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Galerie vidéo</span><i class="bi bi-chevron-down ms-auto"></i>
+        <a class="nav-link collapsed" href="{{route('partenaire')}}">
+          <i class="bi bi-gem"></i><span>Partenaires</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="{{route('allVideo')}}">
-              <i class="bi bi-circle"></i><span>Liste vidéo</span>
-            </a>
-          </li>
-        </ul>
       </li><!-- End Icons Nav -->
 
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{{route('scolaire')}}">
+          <i class="bi bi-gem"></i><span>Vie Scolaire</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+      </li><!-- End Icons Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed"  href="{{route('programme')}}">
+          <i class="bi bi-gem"></i><span>Programme</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+      </li><!-- End Icons Nav -->
     </ul>
 
   </aside><!-- End Sidebar-->
@@ -230,7 +231,7 @@
               <div class="card-body">
 
                 <!-- Table with stripped rows -->
-                <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addModal"><i class="fa fa-add" aria-hidden="true"></i></button>
+                <button type="button" class="btn btn-primary mb-3" data-toggle="modal" data-target="#addModal"><i class="fa fa-add" aria-hidden="true" style="float: right"></i></button>
 
                 <table class="table datatable">
                   <thead>
